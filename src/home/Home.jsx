@@ -4,11 +4,12 @@ import Stack from '@mui/material/Stack';
 import Quiz from '../game/quiz/Quiz';
 import axios from 'axios';
 import { useContext, useEffect } from 'react';
-import { GAME_ACTION_NEW_GAME_LOADING, GAME_ACTION_NEW_GAME_RECEIVED, GamesDispatchContext } from '../context/gamesContext';
+import { GAME_ACTION_NEW_GAME_LOADING, GAME_ACTION_NEW_GAME_RECEIVED, GamesContext, GamesDispatchContext } from '../context/gamesContext';
 
 const Home = () => {
 
     const dispatch = useContext(GamesDispatchContext)
+    const gamesState = useContext(GamesContext)
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -24,6 +25,10 @@ const Home = () => {
         fetchGame()
         },[]
     )
+
+    const notSubmittedQuiz = Object.values(gamesState.games).filter((g) => g.submitted === false)
+
+
     
 
     return(
@@ -31,7 +36,10 @@ const Home = () => {
             <Typography variant='h6' sx={{textAlign: 'center'}}>
                 New Game
             </Typography>
-            <Quiz />
+            {notSubmittedQuiz.length !== 0 &&
+                <Quiz quiz={notSubmittedQuiz[0]}/>
+            }
+            
         </Stack>
     )
 }

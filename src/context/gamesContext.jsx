@@ -30,6 +30,31 @@ const TEMP = {
                             selected: false
                         }
                     ]
+                },
+                {
+                    question: 'Which television series showcases the perils of crab fishermen in the Bering Sea?',
+                    answers: [
+                        {
+                            text: 'Dangerous Waters',
+                            correct: false,
+                            selected: false
+                        },
+                        {
+                            text: 'Extreme Fishing',
+                            correct: false,
+                            selected: false
+                        },
+                        {
+                            text: 'Ocean Adventurers',
+                            correct: false,
+                            selected: false
+                        },
+                        {
+                            text: 'Deadliest Catch"',
+                            correct: true,
+                            selected: false
+                        }
+                    ]
                 }
             ],
             submitted: false
@@ -84,6 +109,8 @@ export const gamesReducer = (prevGames, {type, context}) => {
                         selected: false
                     })
                 }
+                questionAndAnswers.answers = 
+                    questionAndAnswers.answers.sort((a, b) => 0.5 - Math.random())
                 game.quiz.push(questionAndAnswers)
             }
 

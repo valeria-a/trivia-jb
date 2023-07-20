@@ -31,7 +31,7 @@ const Home = () => {
 
 
     return(
-        <Stack direction={'column'} m={'auto'} maxWidth={'30em'}>
+        <>
         {gamesState.loading_new ?
 
             <LinearProgress />
@@ -51,7 +51,7 @@ const Home = () => {
             </>
         }
             
-        </Stack>
+        </>
     )
 }
 

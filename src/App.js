@@ -3,6 +3,7 @@ import './App.css';
 import Header from './header/Header';
 import { GAMES_INITIAL_STATE, GamesContext, GamesDispatchContext, gamesReducer } from './context/gamesContext';
 import { useReducer } from 'react';
+import { Stack } from '@mui/material';
 
 function App() {
 
@@ -13,7 +14,9 @@ function App() {
       <Header />
       <GamesContext.Provider value={games}>
         <GamesDispatchContext.Provider value={gamesDispatch}>
-          <Outlet />
+          <Stack direction={'column'} m={'auto'} maxWidth={'30em'}>
+            <Outlet />
+          </Stack>
         </GamesDispatchContext.Provider>
       </GamesContext.Provider>
     </>

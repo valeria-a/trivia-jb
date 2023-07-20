@@ -68,7 +68,6 @@ const TEMP = {
 
 const NEW = {
     loading_new: false,
-    // isError: false,
     games: {
         123123: {
             id: 123123,

@@ -4,9 +4,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { GAME_ACTION_SELECT_ANSWER, useGamesDispatch } from '../../context/gamesContext';
+import { GAME_ACTION_SELECT_ANSWER, useGames, useGamesDispatch } from '../../context/gamesContext';
+import { FormHelperText } from '@mui/material';
 
-const Question = ({questionAndAnswers, gameId}) => {
+const Question = ({questionAndAnswers, gameId, submitted}) => {
 
     // {
     //     text: 'Dangerous Waters',
@@ -17,6 +18,7 @@ const Question = ({questionAndAnswers, gameId}) => {
     // const [value, setValue] = React.useState('');
 
     const gamesDispatch = useGamesDispatch();
+
 
     const handleChange = (event) => {
         // setValue(event.target.value);
@@ -35,12 +37,18 @@ const Question = ({questionAndAnswers, gameId}) => {
             <FormControlLabel key={answer}
                 value={answer} 
                 control={<Radio />} 
-                label={answer} />
+                label={answer} 
+                disabled={submitted}/>
         )
     })
 
+
+    const isCorrectAnswer = questionAndAnswers.selectedAnswer === questionAndAnswers.correctAnswer
+    const isError = submitted && !isCorrectAnswer
+    const helperText = isCorrectAnswer ? "Great job!" : `The correct answer is: ${questionAndAnswers.correctAnswer}`
+
     return(
-        <FormControl>
+        <FormControl error={isError}>
             <FormLabel id="demo-controlled-radio-buttons-group">{questionAndAnswers.question}</FormLabel>
             <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -51,6 +59,9 @@ const Question = ({questionAndAnswers, gameId}) => {
                 {answerItems}
 
             </RadioGroup>
+            {submitted &&
+                <FormHelperText>{helperText}</FormHelperText>
+            }
         </FormControl>
     )
 }

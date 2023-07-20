@@ -1,10 +1,14 @@
 import { Button, Divider, Stack } from "@mui/material"
 import Question from "../question/Question"
 import { GAME_ACTION_RESET, GAME_ACTION_SUBMIT, useGamesDispatch } from "../../context/gamesContext"
+import { useNavigate } from "react-router-dom"
 
 const Quiz = ({gameData, fetchNewGame}) => {
 
+    console.log('rendering Quiz')
+
     const gameDispatch = useGamesDispatch()
+    const navigate = useNavigate()
 
     const handleSubmit = () => {
         gameDispatch({
@@ -13,6 +17,7 @@ const Quiz = ({gameData, fetchNewGame}) => {
                 gameId: gameData.id
             }
         })
+        navigate(`/previous-games/${gameData.id}`)
     }
 
     const handleReset = () => {
@@ -29,7 +34,9 @@ const Quiz = ({gameData, fetchNewGame}) => {
             <Question 
                 key={questionAndAnswers.question}
                 questionAndAnswers={questionAndAnswers}
-                gameId={gameData.id}/>
+                gameId={gameData.id}
+                submitted={gameData.submitted}
+                />
         )
     })
 

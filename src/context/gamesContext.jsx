@@ -77,7 +77,7 @@ const NEW = {
                     answers: ['Dangerous Waters', 'Extreme Fishing', 'Ocean Adventurers','Deadliest Catch'],
                     correctAnswer: 'Dangerous Waters',
                     selectedAnswer: ''
-                }
+                },
             },
             submitted: false
         },

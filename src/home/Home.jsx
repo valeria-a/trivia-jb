@@ -5,16 +5,21 @@ import Quiz from '../game/quiz/Quiz';
 import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import { GAME_ACTION_NEW_GAME_LOADING, GAME_ACTION_NEW_GAME_RECEIVED, GamesContext, GamesDispatchContext } from '../context/gamesContext';
+import { useSettings } from '../context/settingsContext';
 
 const Home = () => {
 
     const dispatch = useContext(GamesDispatchContext)
     const gamesState = useContext(GamesContext)
+    const settings = useSettings()
 
     const fetchGame = async () => {
 
         dispatch({type: GAME_ACTION_NEW_GAME_LOADING})
-        const response = await axios.get("https://the-trivia-api.com/v2/questions?limit=5")
+        const urlParams = new URLSearchParams()
+        urlParams.append('difficulties', settings.level)
+        urlParams.append('limit', settings.limit)
+        const response = await axios.get(`https://the-trivia-api.com/v2/questions?${urlParams.toString()}`)
         dispatch({
             type: GAME_ACTION_NEW_GAME_RECEIVED, 
             context: {data: response.data}
